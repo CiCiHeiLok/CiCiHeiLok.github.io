@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Baskervville+SC' rel='stylesheet'>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://fonts.googleapis.com/css?family=Abhaya Libre' rel='stylesheet'>
+<style>
+body {
+  background-color: #7b8aa0
+;
+}
+
+h1 {
+  color: #ffffff;
+  text-align: center;
+  font-family: Baskervville SC;
+}
+
+h2 { 
+  color: hsl(224, 62%, 8%);
+  text-align: center;
+  font-family: Baskervville SC;
+  margin: 16px auto;
+}
+
+p {
+  font-family: Abhaya Libre;
+  font-size: 8px;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 400px;
+  margin-right: 400px;
+}
+
+li{margin: 0 30px;
+}
+
+
+.sidebar {
+  padding: 0;
+  width: 200px;
+  background-color: #ffffff;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #d3dff6;
+  color: #1D3663;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #e6e9f9;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+td:focus {
+  outline: none;
+  background-color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+
+table{
+  width:100%; 
+  border-collapse:collapse; 
+  border:1px 
+  solid #ccc;
+
+}
+
+tr{
+  padding:8px; 
+  border:1px 
+  solid #ccc;
+}
+
+td{padding:8px; 
+  border:1px 
+  solid #ccc;
+font-family: Abhaya Libre;
+color: #ffffff
+}
+
+th {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: #6e7b92;
+  color: #ffffff;
+  font-family: Abhaya Libre;
+}
+
+table{
+  background-color: #8394b2;
+}
+button{
+  font-family:  Baskervville SC;
+}
+h2 { 
+  color: hsl(227, 92%, 90%);
+  text-align: center;
+  font-family: Baskervville SC;
+  margin: 16px auto;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.2; /* Adjust transparency */
+    object-fit: cover;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+<div class="sidebar" style="width: 100%; height: auto; position: relative; flex-direction: row; justify-content: center; align-items: center; top: 0; left: 0;">
+  <a href="Alignhp.html">Align Homepage</a> 
+  <a class="active" href="Agenda.html">Agenda</a>
+  <a href="Calendar.html">Calander</a>
+</div>
+
+
+
+<h1>Align: Agenda Table
+  <hr style="border: none; border-top: 1px solid #fffefb; width: 200px; margin: 16px auto;">
+</h1>
+
+<p>Streamline your academic workflow with our versatile Assignment Tracker templates, ideal for both individual tasks and collaborative group assignments. Effortlessly monitor due dates, progress milestones, and peer contributions, ensuring nothing falls through the cracks. Notion brings clarity and cohesion to every academic pursuit.<p>
+
+<div>
+<br>
+<h2>Please update your assignments here</h2>
+<p>Welcome to Align, please input your assignment to keep tract of for on the following table. Feel free Clicking on the Add row button to apply for more row to type in. Also feel free to delete row anytime using the delete row button at the end of each row you created.</p>
+</div>
+
+<br> 
+
+<div> 
+  <table id="editableTable"> 
+    <thead>
+      <tr>
+        <th>Assignment Name</th>
+        <th>Subject</th>
+        <th>Due date</th>
+        <th>Score</th>
+        <th> <button id="addRow"> Add Row </button></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td contenteditable="true"> </td>
+        <td contenteditable="true"> </td>
+        <td contenteditable="true"> </td>
+        <td contenteditable="true"> </td>
+        <td contenteditable="true"> </td>
+      </tr>
+    </tbody>
+  
+  </table>
+</div>
+
+<script>
+   document.getElementById('addRow').onclick = function() {
+        const table = document.getElementById('editableTable').getElementsByTagName('tbody')[0];
+        const newRow = table.insertRow();
+        // Create 4 editable cells
+        for (let i = 0; i < 4; i++) {
+            const cell = newRow.insertCell();
+            cell.contentEditable = "true";
+            cell.style.padding = '8px';
+            cell.style.border = '1px solid #ccc';
+        }
+        // Add the last column with the delete button
+        const deleteCell = newRow.insertCell();
+        const btn = document.createElement('button');
+        btn.textContent = 'Delete Row';
+        deleteCell.style.textAlign = 'center';
+        btn.style.fontFamily = "'Baskervville SC', serif";
+        deleteCell.style.verticalAlign = 'middle';
+        btn.onclick = function() {
+            const table = document.getElementById('editableTable').getElementsByTagName('tbody')[0];
+            if (table.rows.length > 1) {
+                table.deleteRow(newRow.rowIndex - 1); // Adjust for tbody index
+            }
+        };
+        deleteCell.appendChild(btn);
+    };
+</script>
+
+<img src="https://cdn.shopify.com/s/files/1/0387/1460/5613/files/blue-cornflowers.jpg?v=1719064429" alt="Background" class="background-image">

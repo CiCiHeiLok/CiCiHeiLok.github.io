@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <link href='https://fonts.googleapis.com/css?family=Baskervville+SC' rel='stylesheet'>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href='https://fonts.googleapis.com/css?family=Abhaya Libre' rel='stylesheet'>
+<style>
+body {
+  background-color: #7b8aa0;
+}
+
+h1 {
+  color: #ffffff;
+  text-align: center;
+  font-family: Baskervville SC;
+}
+
+p {
+  font-family: Abhaya Libre;
+  font-size: 8px;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+li{margin: 0 30px;
+}
+
+
+.sidebar {
+  padding: 0;
+  width: 200px;
+  background-color: #ffffff;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #d3dff6;
+  color: #1D3663;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #e6e9f9;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+td:focus {
+  outline: none;
+  background-color: inherit;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+
+table{
+  width:100%; 
+  border-collapse:collapse; 
+  border:1px 
+  solid #ccc;
+
+}
+
+tr{
+  padding:8px; 
+  border:1px 
+  solid #ccc;
+}
+
+td{padding:8px; 
+  border:1px 
+  solid #ccc;
+font-family: Abhaya Libre;
+color: #ffffff
+}
+
+th {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: #6e7b92;
+  color: #ffffff;
+  font-family: Abhaya Libre;
+}
+
+table{
+  background-color: #8394b2;
+}
+button{
+  font-family:  Baskervville SC;
+}
+
+.calendar{
+    margin:30px auto; 
+    font-family: Baskervville SC;
+    color: #ffffff;
+}
+h2 { 
+  color: hsl(227, 92%, 90%);
+  text-align: center;
+  font-family: Baskervville SC;
+  margin: 16px auto;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.2; /* Adjust transparency */
+    object-fit: cover;
+    pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+<div class="sidebar" style="width: 100%; height: auto; position: relative; flex-direction: row; justify-content: center; align-items: center; top: 0; left: 0;">
+  <a href="Alignhp.html">Align Homepage</a> 
+  <a href="Agenda.html">Agenda</a>
+  <a class="active" href="Calendar.html">Agenda</a>
+</div>
+
+
+
+<h1>Align
+  <hr style="border: none; border-top: 1px solid #fffefb; width: 200px; margin: 16px auto;">
+</h1>
+
+<h2>Use the following Calendar to Keep track of time</h2>
+
+<p>Streamline your academic workflow with our versatile Assignment Tracker templates, ideal for both individual tasks and collaborative group assignments. Effortlessly monitor due dates, progress milestones, and peer contributions, ensuring nothing falls through the cracks. Notion brings clarity and cohesion to every academic pursuit.<p>
+<body>
+    <div id="calendar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <button id="prevMonth" style="background:#ffffff; border:#b8c6e8; font-size:20px; cursor:pointer;">&#8592;</button>
+            <span id="monthYear" style="font-weight:bold; color: #cad7f5; font-size: 20px;"></span>
+            <button id="nextMonth" style="background:#ffffff; border:#b8c6e8; font-size:20px; cursor:pointer;">&#8594;</button>
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th >Sun</th>
+                    <th >Mon</th>
+                    <th >Tue</th>
+                    <th >Wed</th>
+                    <th >Thu</th>
+                    <th >Fri</th>
+                    <th >Sat</th>
+                </tr>
+            </thead>
+            <tbody id="calendarBody"></tbody>
+        </table>
+    </div>
+    <script>
+    const calendarBody = document.getElementById('calendarBody');
+    const monthYear = document.getElementById('monthYear');
+    let today = new Date();
+    let currentMonth = today.getMonth();
+    let currentYear = today.getFullYear();
+
+    function renderCalendar(month, year) {
+        calendarBody.innerHTML = '';
+        // Show correct month and year
+        monthYear.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}`;
+        let firstDay = new Date(year, month, 1).getDay();
+        let daysInMonth = new Date(year, month + 1, 0).getDate();
+        let date = 1;
+        const realToday = new Date();
+        for (let i = 0; i < 6; i++) {
+            let row = document.createElement('tr');
+            for (let j = 0; j < 7; j++) {
+                let cell = document.createElement('td');
+                cell.style.padding = '8px';
+                cell.style.textAlign = 'center';
+                cell.style.cursor = 'pointer';
+                cell.style.borderRadius = '6px';
+                cell.style.transition = 'box-shadow 0.2s';
+                if (i === 0 && j < firstDay) {
+                    cell.innerHTML = '';
+                } else if (date > daysInMonth) {
+                    cell.innerHTML = '';
+                } else {
+                    cell.textContent = date;
+                    // Highlight current day
+                    if (
+                        date === realToday.getDate() &&
+                        month === realToday.getMonth() &&
+                        year === realToday.getFullYear()
+                    ) {
+                        cell.style.background = 'hsl(218, 40%, 87%)'
+                        cell.style.fontWeight = 'bold';
+                    }
+                    cell.addEventListener('click', function() {
+                        document.querySelectorAll('#calendar td').forEach(td => td.style.boxShadow = '');
+                        this.style.boxShadow = '0 0 10px 2px #888';
+                    });
+                    date++;
+                }
+                row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+            if (date > daysInMonth) break;
+        }
+    }
+
+    document.getElementById('prevMonth').onclick = function() {
+        currentMonth--;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        }
+        renderCalendar(currentMonth, currentYear);
+    };
+
+    document.getElementById('nextMonth').onclick = function() {
+        currentMonth++;
+        if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar(currentMonth, currentYear);
+    };
+
+    renderCalendar(currentMonth, currentYear);
+    </script>
+</body>
+    </html>
+
+    <img src="https://cdn.shopify.com/s/files/1/0387/1460/5613/files/blue-cornflowers.jpg?v=1719064429" alt="Background" class="background-image">
